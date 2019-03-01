@@ -1,7 +1,7 @@
 {
-  "name": "social-network",
+  "name": "aurislucero-mdlinks",
   "version": "1.0.0",
-  "description": "Social Network @ Laboratoria",
+  "description": "libreria para extraer links de archivos con extension md",
   "main": "src/index.html",
   "keywords": [
     "javascript",
@@ -11,11 +11,15 @@
   "license": "MIT",
   "scripts": {
     "eslint": "eslint --ext .js src/ test/",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "url": "https://github.com/Aurislucero/LIM008-fe-md-links"
   },
   "devDependencies": {
-    "@babel/core": "^7.2.2",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/node": "^7.2.2",
     "@babel/plugin-transform-modules-commonjs": "^7.2.0",
+    "@babel/preset-env": "^7.3.4",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^24.1.0",
     "eslint": "^5.10.0",
@@ -24,4 +28,3 @@
     "regenerator-runtime": "^0.13.1"
   }
 }
-
