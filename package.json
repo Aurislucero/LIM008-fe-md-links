@@ -12,7 +12,8 @@
   "scripts": {
     "eslint": "eslint --ext .js src/ test/",
     "test": "jest --coverage",
-    "url": "https://github.com/Aurislucero/LIM008-fe-md-links"
+    "url": "https://github.com/Aurislucero/LIM008-fe-md-links",
+    "build":"babel src -d lib"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",

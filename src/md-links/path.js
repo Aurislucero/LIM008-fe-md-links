@@ -28,34 +28,46 @@ export const convertPath = (paths) => {
  * @param {ruta a verificar} dir
  * @returns un arreglo de rutas absolutas
  */
-const travelDirectory = (dir) => {
+export const travelDirectory = (dir) => {
    let arr=[];
    const newDir = fs.readdirSync(dir);
    newDir.forEach(file=>{
-   
-   let newList= dir + "\\" + file;
+  let newList= path.join(dir,file);
    let statDir=fs.statSync(newList);
    if(statDir.isDirectory()){
        arr =arr.concat(travelDirectory(newList));    
    } else{
-       arr.push(file);
+       if(path.extname(file)==='.md'){
+           arr.push(newList);
+       }
+       
    }
    })
    return arr;
 }
 
-/**
- *filtrar rutas con archivos md
- * 
- * @param {ruta a verificar} arrFile
- * @returns rutas con archivos md
- */
-const filterMd= (arrFile)=>{
-   return arrFile.filter(file=>path.extname(file)==='.md')
-
-}
-console.log(filterMd(travelDirectory('md-links')));
-
+export const linksExtractor = (arrPathsMd) => {
+   let arrObj = [];
+   const arrPathMd= travelDirectory(arrPathsMd);
+   arrPathMd.forEach((link)=>{ 
+      // console.log('hola');
+     const linksMd= fs.readFileSync(link,'utf-8');
+      const expRLinks = /(^|[^!])\[(.*)\]\(((.*)\))/gm;
+      let links = expRLinks.exec(linksMd);
+      // console.log(links);
+      
+      while(links !== null){
+         arrObj.push({
+            file: link,
+            text: links[2],
+            href: links[3].substring(0,50)
+          })
+      links=  expRLinks.exec(linksMd);
+      }
+      })
+      return arrObj; 
+   }
+   console.log(linksExtractor('C:\\Users\\Laboratoria\\Desktop\\project\\project-mdlinks\\LIM008-fe-md-links\\prueba'));
 
  
 
