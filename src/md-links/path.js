@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-
+const fetch = require( 'node-fetch') ;  
 /**
  * Verifica si la ruta es absoluta o relativa
  * 
@@ -61,18 +61,53 @@ export const linksExtractor = (arrPathsMd) => {
             file: link,
             text: links[2],
             href: links[3].substring(0,50)
+
           })
       links=  expRLinks.exec(linksMd);
       }
       })
       return arrObj; 
    }
-   console.log(linksExtractor('C:\\Users\\Laboratoria\\Desktop\\project\\project-mdlinks\\LIM008-fe-md-links\\prueba'));
+   // console.log(linksExtractor('C:\\Users\\Laboratoria\\Desktop\\project\\project-mdlinks\\LIM008-fe-md-links\\prueba'));
+   
+   
+   const validateStats = (Path) => {
+      const arrObj = linksExtractor(Path);
+     const arrLinks = arrObj.map(link => fetch(link.href)
+     .then((response)=>{
+      if(response.status>=200 && response.status<400){
+         link.status = response.status;
+         link.statusText = response.statusText;
+        }else{
+         link.status = response.status;
+         link.statusText = 'fail';
+        }
+     }))
+    // console.log(arrLinks);
+     
+     return Promise.all(arrLinks)
+       .then(() => console.log(arrObj))
+     
+   // })
+   //    console.log(arrObj);           
+   //   })
+     .catch((error) => ({
+      error
+     }))
+   }
 
+   validateStats('C:\\Users\\Laboratoria\\Desktop\\project\\project-mdlinks\\LIM008-fe-md-links\\prueba');  
+     
+   //   
+   //     .then(response => {
+   //       const linksValidate = arrObjLinks.map((objLinkData, statsLink) => {
+   //         objLinkData.status = response[statsLink].status;
+   //         objLinkData.statusText = response[statsLink].statusText;
+   //         return objLinkData;
+   //       });
+   //       return linksValidate;
+   //     })
+   
+
+//  console.log(validateStats([{href: 'https://app.zeplin.io/project/5c312ecbbae2c22086d6'},{href: 'https://www.npmjs.com/package/node-fetch'}]));
  
-
- 
-
- 
-
-
