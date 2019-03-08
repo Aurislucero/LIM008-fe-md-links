@@ -1,5 +1,5 @@
 import {mdLinks} from '../src/md-links/index.js';
-import {verifyPath,convertPath,travelDirectory,linksExtractor} from '../src/md-links/path.js';
+import {verifyPath,convertPath,travelDirectory,linksExtractor,validateStats} from '../src/md-links/path.js';
 
 
 describe('funcion verifyPath', () => {
@@ -33,17 +33,35 @@ describe('funcion verifyPath', () => {
     }); 
   })
 
-  describe.only('funcion linksExtractor',()=>{
+  describe('funcion linksExtractor',()=>{
     it('Deberia ser una funcion',()=>{
         expect(typeof linksExtractor).toBe('function');
     });  
-    it.only('Deberia retornar un array de objetos',()=>{
-        expect(linksExtractor('C:\\Users\\Laboratoria\\Desktop\\project\\project-mdlinks\\LIM008-fe-md-links\\prueba\\prueba1')).toBe( [ { file:
-            'C:\\Users\\Laboratoria\\Desktop\\project\\project-mdlinks\\LIM008-fe-md-links\\prueba\\prueba1\\prueba2.md',
-           text: 'prototipo-en-zeplin',
-           href: 'https://app.zeplin.io/project/5c312ecbbae2c22086d6' }]);
+    it('Deberia retornar un array de objetos',()=>{
+        expect(linksExtractor('C:\\Users\\Laboratoria\\Desktop\\project\\project-mdlinks\\LIM008-fe-md-links\\prueba\\prueba1')).toEqual([{"file": "C:\\Users\\Laboratoria\\Desktop\\project\\project-mdlinks\\LIM008-fe-md-links\\prueba\\prueba1\\prueba2.md", "href": "https://app.zeplin.io/project/5c312ecbbae2c22086d6", "text": "prototipo-en-zeplin"}, {"file": "C:\\Users\\Laboratoria\\Desktop\\project\\project-mdlinks\\LIM008-fe-md-links\\prueba\\prueba1\\prueba2.md", "href": "https://www.figma.com/proto/FhGoRtLdYJ8nH1sfVmZoTT", "text": "prototipo-en-figma"}, {"file": "C:\\Users\\Laboratoria\\Desktop\\project\\project-mdlinks\\LIM008-fe-md-links\\prueba\\prueba1\\prueba2.md", "href": "https://medium.com/netscape/a-guide-to-create-a-no", "text": "prototipo-en-figma"}]);
   }); 
 })
+
+describe.only('funcion validateStats',()=>{
+    it.only('Deberia ser una funcion',()=>{
+        expect(typeof validateStats).toEqual('function');
+    });  
+    it('Devuelve una promesa que resuelve a un array', (listo) => {
+                validateStats()
+                    .then((arr) => {
+                        expect(Array.isArray(arr)).toBe(true);
+                        listo();
+                    })
+    })
+})
+
+
+
+
+
+
+
+
 
 //   describe('Funcion mdLinks', () => {
 

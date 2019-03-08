@@ -71,43 +71,29 @@ export const linksExtractor = (arrPathsMd) => {
    // console.log(linksExtractor('C:\\Users\\Laboratoria\\Desktop\\project\\project-mdlinks\\LIM008-fe-md-links\\prueba'));
    
    
-   const validateStats = (Path) => {
+   export const validateLink = (Path) => {
       const arrObj = linksExtractor(Path);
-     const arrLinks = arrObj.map(link => fetch(link.href)
-     .then((response)=>{
-      if(response.status>=200 && response.status<400){
-         link.status = response.status;
-         link.statusText = response.statusText;
-        }else{
-         link.status = response.status;
-         link.statusText = 'fail';
-        }
+     const arrLinks = arrObj.map(links => new Promise((resolve,reject)=>{
+      const validateLink=fetch(links.href)
+      validateLink.then((response)=>{
+       //   console.log(response);
+          if(response.status>=200 && response.status<400){
+          links.status = response.status;
+          links.statusText = response.statusText;
+          resolve(links)
+         }else{
+          links.status = response.status;
+          links.statusText = 'fail';
+          resolve(links)
+         }
+      })
+      .catch(err=>{
+         reject(err)
+       })
      }))
-    // console.log(arrLinks);
-     
-     return Promise.all(arrLinks)
-       .then(() => console.log(arrObj))
-     
-   // })
-   //    console.log(arrObj);           
-   //   })
-     .catch((error) => ({
-      error
-     }))
+    return Promise.all(arrLinks)
+    .then((res) => console.log(res));
    }
-
-   validateStats('C:\\Users\\Laboratoria\\Desktop\\project\\project-mdlinks\\LIM008-fe-md-links\\prueba');  
-     
-   //   
-   //     .then(response => {
-   //       const linksValidate = arrObjLinks.map((objLinkData, statsLink) => {
-   //         objLinkData.status = response[statsLink].status;
-   //         objLinkData.statusText = response[statsLink].statusText;
-   //         return objLinkData;
-   //       });
-   //       return linksValidate;
-   //     })
+   validateLink('C:\\Users\\Laboratoria\\Desktop\\project\\project-mdlinks\\LIM008-fe-md-links\\prueba\\prueba1');
    
-
-//  console.log(validateStats([{href: 'https://app.zeplin.io/project/5c312ecbbae2c22086d6'},{href: 'https://www.npmjs.com/package/node-fetch'}]));
- 
+    
