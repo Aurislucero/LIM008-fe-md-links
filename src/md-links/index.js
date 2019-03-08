@@ -7,11 +7,11 @@ const path = require('path');
  * @param {*} options
  * @returns 
  */
-export const mdLinks = (route, options) => {
-    return new Promise((resolve, reject) => {
-        resolve([])
-    })
-}
+// export const mdLinks = (route, options) => {
+//     return new Promise((resolve, reject) => {
+//         resolve([])
+//     })
+// }
   
   
   

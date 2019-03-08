@@ -11,7 +11,6 @@ const fetch = require( 'node-fetch') ;
 export const verifyPath = (paths) => {
    return  path.isAbsolute(paths); 
 }
-
 /**
  * convertir de ruta relativa a absoluta
  * 
@@ -92,8 +91,12 @@ export const linksExtractor = (arrPathsMd) => {
        })
      }))
     return Promise.all(arrLinks)
-    .then((res) => console.log(res));
-   }
-   validateLink('C:\\Users\\Laboratoria\\Desktop\\project\\project-mdlinks\\LIM008-fe-md-links\\prueba\\prueba1');
-   
     
+   }
+   // validateLink('C:\\Users\\Laboratoria\\Desktop\\project\\project-mdlinks\\LIM008-fe-md-links\\prueba\\prueba1');
+   
+   
+  
+  
+
+  
