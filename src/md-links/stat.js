@@ -1,28 +1,50 @@
-import {validateLink} from './path.js';
+import { linksExtractor } from './path.js';
+const fetch = require( 'node-fetch') ; 
+
 // import { rejects } from 'assert';
 
-export const uniqueAndTotalArrLinks = (path)=>{
-    const arrLinks=validateLink(path)
-    return new Promise((resolve,reject)=>{
-        arrLinks.then(response=>{
-            const totalLinks =response.length;
-            const arrlinkhref= response.map(link=>link.href)
-            const uniqueLinks =[...new Set(arrlinkhref)].length; 
-            resolve([totalLinks,uniqueLinks])
-        }) .catch(err=>reject(err))
-    })    
+  /**
+ *verificar si el link es valido con fetch
+ * 
+ * @param {ruta a verificar} Path
+ * @returns un array de objetos con cinco propiedades 
+ */
+export const validateLink = (Path) => {
+    const arrObj = linksExtractor(Path);
+   const arrLinks = arrObj.map(links => new Promise((resolve,reject)=>{
+    const validateLink=fetch(links.href)
+    validateLink.then((response)=>{
+     //   console.log(response);
+        if(response.status>=200 && response.status<400){
+        links.status = response.status;
+        links.statusText = response.statusText;
+        resolve(links)
+       }else{
+        links.status = response.status;
+        links.statusText = 'fail';
+        resolve(links)
+       }
+    })
+    .catch(err=>{
+       links.status = 'link sin status';
+       links.statusText = 'fail';
+       reject(err)
+     })
+   }))
+  return Promise.all(arrLinks)
+  
+ }
+//  validateLink('C:\\Users\\Laboratoria\\Desktop\\project\\project-mdlinks\\LIM008-fe-md-links\\prueba\\prueba1').then(r=>console.log(r));
+export const uniqueLinks = (arrObj)=>{
+        const Linkunique =[...new Set(arrObj.map(link=>link.href))].length
+        return Linkunique 
 }
-uniqueAndTotalArrLinks('C:\\Users\\Laboratoria\\Desktop\\project\\project-mdlinks\\LIM008-fe-md-links\\prueba\\prueba1').then(r=>console.log(r))
-
-export const brokenLinks = (path)=>{
-    const arrLinks=validateLink(path) 
-    return new Promise((resolve,reject)=>{
-        arrLinks.then(response=>{
-            const arrObjlinksBroken = response.filter(links => links.statusText === 'fail').length
-            resolve(arrObjlinksBroken);
-        }).catch(err=>reject(err)) 
-    })}
-    // brokenLink('C:\\Users\\Laboratoria\\Desktop\\project\\project-mdlinks\\LIM008-fe-md-links\\prueba\\prueba1').then(r=>console.log(r))
+// uniqueLinks('C:\\Users\\Laboratoria\\Desktop\\project\\project-mdlinks\\LIM008-fe-md-links\\prueba\\prueba1').then(r=>console.log(r))
+export const arrObjlinksBroken = (arrObj)=>{
+        const arrObjlinksBroken = arrObj.filter(links => links.statusText === 'fail').length
+        return arrObjlinksBroken
+    }  
+// arrObjlinksBroken('C:\\Users\\Laboratoria\\Desktop\\project\\project-mdlinks\\LIM008-fe-md-links\\prueba\\prueba1').then(r=>console.log(r));
 
 
 
