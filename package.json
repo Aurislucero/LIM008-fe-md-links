@@ -1,23 +1,31 @@
 {
   "name": "aurislucero-mdlinks",
   "version": "1.0.0",
-  "description": "libreria para extraer links de archivos con extension md",
-  "main": "src/index.html",
+  "description": "libreria  extraer links verificados con extension md",
+  "main": "lib/md-links/index.js",
   "keywords": [
     "javascript",
     "npm",
     "jest"
   ],
-  "license": "MIT",
+  "license": "ISC",
   "bin": {
     "md-links": "lib/md-links/cli.js"
   },
   "scripts": {
     "eslint": "eslint --ext .js src/ test/",
     "test": "jest --coverage",
-    "url": "https://github.com/Aurislucero/LIM008-fe-md-links",
     "build": "babel src -d lib"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+9://github.com/Aurislucero/LIM008-fe-md-links.git"
+  },
+  "author": "Aurislucero",
+  "bugs": {
+    "url": "https://github.com/Aurislucero/LIM008-fe-md-links/issues"
+  },
+  "homepage": "https://github.com/Aurislucero/LIM008-fe-md-links#readme",
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.3.4",
