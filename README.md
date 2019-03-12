@@ -354,3 +354,4 @@ si tienes dudas existenciales con respecto a estas decisiones. No existe una
 - [ ] Pruebas unitarias cubren un mínimo del 70% de statements, functions,
   lines, y branches.
 - [ ] Pasa tests (y linters) (`npm test`).
+![diagrama de flujo](imagen/flujo.PNG)
