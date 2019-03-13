@@ -1,6 +1,5 @@
-import { linksExtractor } from './path.js';
+import{verifyPathIsAbsolute,convertPath,linksExtractor} from './path.js';
 const fetch = require( 'node-fetch') ; 
-
 // import { rejects } from 'assert';
 
   /**
@@ -9,8 +8,14 @@ const fetch = require( 'node-fetch') ;
  * @param {ruta a verificar} Path
  * @returns un array de objetos con cinco propiedades 
  */
+
+
+  
 export const validateLink = (Path) => {
-    const arrObj = linksExtractor(Path);
+  let pathAbsolute;
+  if(verifyPathIsAbsolute(Path)===false) {pathAbsolute = convertPath(Path)}
+  else{pathAbsolute= Path;}
+    const arrObj = linksExtractor(pathAbsolute);
    const arrLinks = arrObj.map(links => new Promise((resolve,reject)=>{
     const validateLink=fetch(links.href)
     validateLink.then((response)=>{
@@ -34,6 +39,8 @@ export const validateLink = (Path) => {
   return Promise.all(arrLinks)
   
  }
+
+ 
 //  validateLink('C:\\Users\\Laboratoria\\Desktop\\project\\project-mdlinks\\LIM008-fe-md-links\\prueba\\prueba1').then(r=>console.log(r));
 export const uniqueLinks = (arrObj)=>{
         const Linkunique =[...new Set(arrObj.map(link=>link.href))].length
@@ -41,8 +48,8 @@ export const uniqueLinks = (arrObj)=>{
 }
 // uniqueLinks('C:\\Users\\Laboratoria\\Desktop\\project\\project-mdlinks\\LIM008-fe-md-links\\prueba\\prueba1').then(r=>console.log(r))
 export const arrObjlinksBroken = (arrObj)=>{
-        const arrObjlinksBroken = arrObj.filter(links => links.statusText === 'fail').length
-        return arrObjlinksBroken
+       const arrObjlinksBroken = arrObj.filter(links => links.statusText === 'fail').length
+       return arrObjlinksBroken
     }  
 // arrObjlinksBroken('C:\\Users\\Laboratoria\\Desktop\\project\\project-mdlinks\\LIM008-fe-md-links\\prueba\\prueba1').then(r=>console.log(r));
 

@@ -2,13 +2,14 @@ const path = require('path');
 const fs = require('fs');
 export const verifyPathIsAbsolute = paths => path.isAbsolute(paths);
 export const convertPath = paths => path.resolve(paths);
+
 /**
  *correr  si es un directorio
  * 
  * @param {ruta a verificar} dir
  * @returns un arreglo de rutas  md
  */
- const travelDirectory = (dir) => {
+ export const travelDirectory = (dir) => {
    let arr=[];
    const newDir = fs.readdirSync(dir);
    newDir.forEach(file=>{
@@ -28,7 +29,7 @@ export const convertPath = paths => path.resolve(paths);
  * @param {ruta a verificar} paths
  * @returns un arreglo de rutas md
  */
- const travelFile = (paths) => {
+  const travelFile = (paths) => {
    let arr=[];
    const statsFile = fs.statSync(paths)
    if(statsFile.isFile() && path.extname(paths) === '.md'){
