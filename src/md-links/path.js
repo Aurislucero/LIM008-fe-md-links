@@ -45,13 +45,16 @@ export const convertPath = paths => path.resolve(paths);
  * @returns un array de objetos con tres propiedades
  */
 export const linksExtractor = (arrPathsMd) => {
+   let pathAbsolutemd;
+   if(verifyPathIsAbsolute(arrPathsMd)===false) {pathAbsolutemd = convertPath(arrPathsMd)}
+   else{pathAbsolutemd=arrPathsMd;}
    let arrObj = [];
    let arrPathMd;
-   if(fs.statSync(arrPathsMd).isFile()){
-       arrPathMd= travelFile(arrPathsMd);
+   if(fs.statSync(pathAbsolutemd).isFile()){
+       arrPathMd= travelFile(pathAbsolutemd);
    }
-   else if(fs.statSync(arrPathsMd).isDirectory()){
-      arrPathMd= travelDirectory(arrPathsMd);
+   else if(fs.statSync(pathAbsolutemd).isDirectory()){
+      arrPathMd= travelDirectory(pathAbsolutemd);
    }
    
    arrPathMd.forEach((link)=>{ 

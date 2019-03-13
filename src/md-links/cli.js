@@ -52,16 +52,21 @@ if (options.stats && !options.validate){
     .then(response=>console.log(`Total: ${response.length} \nUnique: ${uniqueLinks(response)}`))
     .catch(error=>reject(error))      
 }
-if (options.validate && !options.stats){
+else if (options.validate && !options.stats){
     mdLinks(path,options)
-    .then(response=>console.log(response));
+    .then(response=>console.log(response))
+    .catch(err=>console.log(err))
 }
 
- if ( options.stats && options.validate){
+ else if ( options.stats && options.validate){
      validateLink(path)
      .then(response=>console.log(`Total: ${response.length} \nUnique: ${uniqueLinks(response)} \nBroken: ${arrObjlinksBroken(response)}`))
      .catch(error=>reject(error)) 
  } 
+ else if(!options.validate && !options.stats){
+    mdLinks(path,options)
+    .then(response=>console.log(response))
+}
 }
 
 

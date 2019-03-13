@@ -1,7 +1,9 @@
 import{validateLink} from './stat.js';
 import{linksExtractor} from './path.js';
+const options={
+  validate:false
+}
 
-linksExtractor
 const fs = require('fs');
 /**
  * @param {*} path 
@@ -14,8 +16,8 @@ export const mdLinks = (pathAbsolute,options) => {
      if (options.validate){
     validateLink(pathAbsolute).then(response=>resolve(response)).catch(error=>reject(error))       
    }
-   else{
-    return new Promise(resolve => resolve(linksExtractor(pathAbsolute)));
+   else if(!options.validate){
+    resolve(linksExtractor(pathAbsolute))
   } 
 })
 }
