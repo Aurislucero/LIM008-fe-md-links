@@ -11,11 +11,8 @@ const fetch = require( 'node-fetch') ;
 
 
   
-export const validateLink = (Path) => {
-  let pathAbsolute;
-  if(verifyPathIsAbsolute(Path)===false) {pathAbsolute = convertPath(Path)}
-  else{pathAbsolute= Path;}
-    const arrObj = linksExtractor(pathAbsolute);
+export const validateLink = (Paths) => {
+    const arrObj = linksExtractor(Paths);
    const arrLinks = arrObj.map(links => new Promise((resolve,reject)=>{
     const validateLink=fetch(links.href)
     validateLink.then((response)=>{

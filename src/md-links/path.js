@@ -57,16 +57,16 @@ export const linksExtractor = (arrPathsMd) => {
       arrPathMd= travelDirectory(pathAbsolutemd);
    }
    
-   arrPathMd.forEach((link)=>{ 
+   arrPathMd.forEach((file)=>{ 
       // console.log('hola');
-     const linksMd= fs.readFileSync(link,'utf-8');
+     const linksMd= fs.readFileSync(file,'utf-8');
       const expRLinks = /(^|[^!])\[(.*)\]\(((.*)\))/gm;
       let links = expRLinks.exec(linksMd);
       // console.log(links);
       
       while(links !== null){
          arrObj.push({
-            file: link,
+            file: file,
             text: links[2],
             href: links[3].substring(0,50)
 
