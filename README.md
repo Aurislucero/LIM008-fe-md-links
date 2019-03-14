@@ -13,6 +13,10 @@ primero debes colocar
 
 $ npm install Aurislucero/LIM008-fe-md-links
 
+debes importarlo de la siguiente manera:
+
+const nombre = require('aurislucero-mdlinks');
+
 ofrece la siguiente interfaz:
 #### mdLinks(path, options)
 
