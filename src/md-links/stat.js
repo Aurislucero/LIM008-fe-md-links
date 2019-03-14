@@ -12,28 +12,28 @@ const fetch = require( 'node-fetch') ;
 
   
 export const validateLink = (Paths) => {
-    const arrObj = linksExtractor(Paths);
-   const arrLinks = arrObj.map(links => new Promise((resolve,reject)=>{
-    const validateLink=fetch(links.href)
+    const arrObjs = linksExtractor(Paths);
+   const ValidatesarrObj = arrObjs.map(arrObj => new Promise((resolve,reject)=>{
+    const validateLink=fetch(arrObj.href)
     validateLink.then((response)=>{
      //   console.log(response);
         if(response.status>=200 && response.status<400){
-        links.status = response.status;
-        links.statusText = response.statusText;
-        resolve(links)
+          arrObj.status = response.status;
+          arrObj.statusText = response.statusText;
+        resolve(arrObj)
        }else{
-        links.status = response.status;
-        links.statusText = 'fail';
-        resolve(links)
+        arrObj.status = response.status;
+        arrObj.statusText = 'fail';
+        resolve(arrObj)
        }
     })
     .catch(err=>{
-       links.status = 'link sin status';
-       links.statusText = 'fail';
-       resolve(links)
+      arrObj.status = 'link sin status';
+      arrObj.statusText = 'fail';
+       resolve(arrObj)
      })
    }))
-  return Promise.all(arrLinks)
+  return Promise.all(ValidatesarrObj)
   
  }
 
