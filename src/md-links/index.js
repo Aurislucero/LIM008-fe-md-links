@@ -1,8 +1,8 @@
 import{validateLink} from './stat.js';
 import{linksExtractor} from './path.js';
-const options={
-  validate:false
-}
+// const options={
+//   validate:false
+// }
 
 const fs = require('fs');
 /**
@@ -22,5 +22,5 @@ export const mdLinks = (pathAbsolute,options) => {
 })
 }
 // mdLinks('C:\\Users\\Laboratoria\\Desktop\\project\\project-mdlinks\\LIM008-fe-md-links\\prueba\\prueba1\\prueba2.md',options).then(r=>console.log(r))
-module.exports = mdLinks;
+
   
