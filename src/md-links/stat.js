@@ -33,7 +33,7 @@ export const validateLink = (Path) => {
     .catch(err=>{
        links.status = 'link sin status';
        links.statusText = 'fail';
-       reject(err)
+       resolve(links)
      })
    }))
   return Promise.all(arrLinks)
