@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import{uniqueLinks,validateLink,arrObjlinksBroken} from './stat.js';
-const mdLinks = require('./index.js')
+import{mdLinks} from './index.js';
 var program = require('commander');
 // console.log(process.argv);
 

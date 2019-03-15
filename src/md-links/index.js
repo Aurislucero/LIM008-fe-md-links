@@ -14,7 +14,7 @@ export const mdLinks = (pathAbsolute,options) => {
  
  return new Promise((resolve, reject) => {
      if (options.validate){
-    validateLink(pathAbsolute).then(response=>resolve(response)).catch(error=>reject(error))       
+      validateLink(pathAbsolute).then(response=>resolve(response)).catch(error=>reject(error))       
    }
    else if(!options.validate){
     resolve(linksExtractor(pathAbsolute))

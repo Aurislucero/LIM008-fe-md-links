@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs');
 export const verifyPathIsAbsolute = paths => path.isAbsolute(paths);
 export const convertPath = paths => path.resolve(paths);
+const myMarked= require('marked');
 
 /**
  *correr  si es un directorio
@@ -56,23 +57,15 @@ export const linksExtractor = (arrPathsMd) => {
    else if(fs.statSync(pathAbsolutemd).isDirectory()){
       arrPathMd= travelDirectory(pathAbsolutemd);
    }
-   
+   const renderer = new myMarked.Renderer();
    arrPathMd.forEach((file)=>{ 
       // console.log('hola');
      const linksMd= fs.readFileSync(file,'utf-8');
-      const expRLinks = /(^|[^!])\[(.*)\]\(((.*)\))/gm;
-      let links = expRLinks.exec(linksMd);
+   //   const fileContent = fs.readFileSync(ele, 'utf8');
+     renderer.link = (href, title, text) => {
+      arrObj.push({file: file,href: href.slice(0,51), text}) };
+      myMarked(linksMd, {renderer});
       // console.log(links);
-      
-      while(links !== null){
-         arrObj.push({
-            file: file,
-            text: links[2],
-            href: links[3].substring(0,50)
-
-          })
-      links=  expRLinks.exec(linksMd);
-      }
       })
       return arrObj; 
    }
